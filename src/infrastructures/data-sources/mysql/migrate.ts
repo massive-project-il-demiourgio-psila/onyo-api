@@ -2,20 +2,17 @@ import { drizzle } from 'drizzle-orm/mysql2';
 import mysql from 'mysql2';
 import { migrate } from 'drizzle-orm/mysql2/migrator';
 import * as schema from './schema'
+import { env } from '@/utils/config';
 
-console.log(process.env.DB_HOST)
+const { host, port, user, password, dbname: database } = env.mysql
 
 const connection = mysql.createConnection({
-    host: process.env.DB_HOST,
-    port: (process.env.DB_PORT || 3307) as number,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host, port, user, password, database,
     multipleStatements: true,
 });
 
 const db = drizzle(connection, { schema, mode: 'default' })
 
-await migrate(db, { migrationsFolder: './db/migrations/' });
+await migrate(db, { migrationsFolder: import.meta.dir + '/migrations' });
 
 connection.end();

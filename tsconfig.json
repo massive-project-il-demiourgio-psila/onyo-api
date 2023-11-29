@@ -1,23 +1,41 @@
 {
   "compilerOptions": {
+    "types": [
+      "bun-types"
+      // add Bun global
+    ],
     "lib": [
       "ESNext"
     ],
-    "module": "esnext",
-    "target": "esnext",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    /* If NOT transpiling with TypeScript: */
     "moduleResolution": "bundler",
     "moduleDetection": "force",
-    "allowImportingTsExtensions": true,
+    "module": "ESNext",
+    "target": "es2022",
     "noEmit": true,
-    "composite": true,
-    "strict": true,
-    "downlevelIteration": true,
+    "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "types": [
-      "bun-types" // add Bun global
-    ]
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    /* Strictness */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    //    "outDir": "dist",
+    "sourceMap": true,
+    "declaration": true,
+    "composite": true,
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true
   }
 }
