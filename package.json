@@ -12,8 +12,15 @@
   "license": "SSPL-1.0",
   "scripts": {
     "prepare": "husky install",
+    "start:dev": "bun src/index.ts",
     "start:watch": "bun --watch src/index.ts",
     "migrate:up": "bun run src/infrastructures/data-sources/mysql/migrate.ts"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "bun x prettier --write",
+      "bun x eslint --fix"
+    ]
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -58,10 +65,10 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-drizzle": "^0.1.6",
-    "eslint-plugin-n": "^16.3.1",
+    "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-promise": "^6.1.1",
     "husky": "^8.0.0",
     "jest": "^29.7.0",
     "lint-staged": "^15.1.0",

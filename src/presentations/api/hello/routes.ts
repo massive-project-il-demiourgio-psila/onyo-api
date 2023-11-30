@@ -1,11 +1,12 @@
-import { Router } from "express";
-import HelloHandler from "./handler";
+import { Router } from 'express'
+import HelloHandler from './handler'
 
-export const helloRouter = (handler: HelloHandler) => {
-    const router = Router();
+const helloRouter = (handler: HelloHandler) => {
+  const router = Router()
 
-    router.get('/hello', handler.getHello)
+  router.get('/hello', handler.getHello)
 
-    return router;
-
+  return router
 }
+
+export default helloRouter

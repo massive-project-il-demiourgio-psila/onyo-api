@@ -1,13 +1,14 @@
-import { Router } from "express";
+import { Router } from 'express'
 import { DependencyContainer } from 'tsyringe'
-import HelloHandler from "./hello/handler";
-import { helloRouter } from "./hello/routes";
+import HelloHandler from './hello/handler'
+import helloRouter from './hello/routes'
 
-export const apiRouter = (container: DependencyContainer) => {
-    const router = Router();
-    const helloHandler = new HelloHandler(container);
+const apiRouter = (container: DependencyContainer) => {
+  const router = Router()
+  const helloHandler = new HelloHandler(container)
 
-    router.use(helloRouter(helloHandler))
+  router.use(helloRouter(helloHandler))
 
-    return router
+  return router
 }
+export default apiRouter

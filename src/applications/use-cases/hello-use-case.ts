@@ -1,17 +1,16 @@
-import { inject, injectable } from "tsyringe";
-import { type IHelloWorldRepository } from "@/domains/repositories/hello-world-repository";
+import { inject, injectable } from 'tsyringe'
+import { type IHelloWorldRepository } from '@/domains/repositories/hello-world-repository'
 
 @injectable()
 export default class GetHelloUseCase {
+  helloWorldRepo: IHelloWorldRepository
 
-    helloWorldRepo: IHelloWorldRepository
+  constructor(@inject('IHelloWorldRepository') helloWorldRepo: IHelloWorldRepository) {
+    this.helloWorldRepo = helloWorldRepo
+  }
 
-    constructor(@inject("IHelloWorldRepository") helloWorldRepo: IHelloWorldRepository) {
-        this.helloWorldRepo = helloWorldRepo;
-    }
-
-    execute = async () => {
-        let hello = await this.helloWorldRepo.getHelloWorld();
-        return hello
-    }
+  execute = async () => {
+    const hello = await this.helloWorldRepo.getHelloWorld()
+    return hello
+  }
 }

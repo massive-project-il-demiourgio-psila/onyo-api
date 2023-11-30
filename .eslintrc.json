@@ -4,11 +4,7 @@
     "node": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "drizzle"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "drizzle"],
   "extends": [
     "airbnb-base",
     "airbnb-typescript/base",
@@ -22,15 +18,27 @@
     "project": "./tsconfig.eslint.json"
   },
   "rules": {
+    "no-console": "off",
+    "no-restricted-exports": "off",
+    "import/no-named-as-default": "off",
+    "import/no-unresolved": "error",
     "import/extensions": [
       "error",
       "ignorePackages",
       {
         "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
+        "ts": "never"
       }
     ]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
   }
 }
