@@ -9,7 +9,7 @@ export default class HelloHandler {
     this.container = container
   }
 
-  getHello = async (req: Request, res: Response) => {
+  getHello = async (_req: Request, res: Response) => {
     const hello = this.container.resolve(GetHelloUseCase)
     res.json(await hello.execute())
   }

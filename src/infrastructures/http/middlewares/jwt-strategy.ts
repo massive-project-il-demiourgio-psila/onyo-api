@@ -1,5 +1,5 @@
 import { Strategy as JwtStrategy, StrategyOptions, ExtractJwt, VerifyCallback, VerifiedCallback } from 'passport-jwt'
-import env from '../../utils/config'
+import env from '../../../utils/config'
 
 const { iss, aud, accessTokenSecret, accessTokenAge } = env.jwt
 

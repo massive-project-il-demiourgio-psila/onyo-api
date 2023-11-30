@@ -6,7 +6,7 @@
   "configurations": [
     {
       "type": "bun",
-      "internalConsoleOptions": "openOnSessionStart",
+      "internalConsoleOptions": "neverOpen",
       "request": "launch",
       "name": "Debug index.ts",
       "program": "src/index.ts",

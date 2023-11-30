@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import HelloHandler from './handler'
+import HelloHandler from './hello.handler'
 
 const helloRouter = (handler: HelloHandler) => {
   const router = Router()

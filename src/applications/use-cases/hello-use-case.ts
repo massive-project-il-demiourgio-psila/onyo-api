@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { type IHelloWorldRepository } from '@/domains/repositories/hello-world-repository'
+import type IHelloWorldRepository from '@/domains/repositories/hello-world.repository'
 
 @injectable()
 export default class GetHelloUseCase {
