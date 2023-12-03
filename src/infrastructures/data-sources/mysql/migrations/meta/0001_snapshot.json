@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "93cec133-424b-44ae-a3ec-677c2bbc6d87",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "ffbb1c04-37d2-47f4-8a78-270699dc630b",
+  "prevId": "93cec133-424b-44ae-a3ec-677c2bbc6d87",
   "tables": {
     "permissions": {
       "name": "permissions",
@@ -520,20 +520,6 @@
         }
       },
       "indexes": {
-        "email_unique_idx": {
-          "name": "email_unique_idx",
-          "columns": [
-            "email"
-          ],
-          "isUnique": true
-        },
-        "phone_unique_idx": {
-          "name": "phone_unique_idx",
-          "columns": [
-            "phone_number"
-          ],
-          "isUnique": true
-        },
         "dob_idx": {
           "name": "dob_idx",
           "columns": [
@@ -551,7 +537,20 @@
           ]
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "columns": [
+            "email"
+          ]
+        },
+        "users_phone_number_unique": {
+          "name": "users_phone_number_unique",
+          "columns": [
+            "phone_number"
+          ]
+        }
+      }
     },
     "user_permissions": {
       "name": "user_permissions",
