@@ -1,2 +1,5 @@
 export * from './users'
 export * from './vehicles'
+export * from './bookings'
+export * from './reviews'
+export * from './drivers'

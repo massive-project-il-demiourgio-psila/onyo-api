@@ -1,8 +1,8 @@
-import { boolean, datetime, varchar } from 'drizzle-orm/mysql-core'
+import { boolean, timestamp, varchar } from 'drizzle-orm/mysql-core'
 
 export const auditableAtColumns = {
-  createdAt: datetime('created_at'),
-  updatedAt: datetime('updated_at'),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'date' }).onUpdateNow(),
 }
 
 export const auditableByColumns = {

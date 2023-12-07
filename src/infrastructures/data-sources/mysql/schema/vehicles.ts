@@ -73,7 +73,7 @@ export const vehicles = mysqlTable('vehicles', {
   aircon: int('air_conditioner'), // (where 0 = doesn't exist AND 5 = like new)
   extraAttrs: json('extra_attributes')
     .$type<VehicleExtraAttributes>()
-    .default({ color: null, noOfDoors: 0, noOfAirbags: 0, noOfGears: 0, odometerReading: 0 }),
+    .default({ color: null, noOfDoors: 0, noOfAirbags: 0, noOfGears: 0 }),
 })
 
 type VehicleExtraAttributes = {
@@ -81,5 +81,4 @@ type VehicleExtraAttributes = {
   noOfDoors: number
   noOfGears: number
   noOfAirbags: number
-  odometerReading: number
 }

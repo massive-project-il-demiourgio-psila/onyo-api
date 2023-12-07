@@ -1,4 +1,4 @@
-import { date, text, index, mysqlTable, varchar } from 'drizzle-orm/mysql-core'
+import { date, text, index, mysqlTable, varchar, datetime } from 'drizzle-orm/mysql-core'
 import { relations } from 'drizzle-orm'
 import { ulid } from 'ulidx'
 import { auditableAtColumns, auditableByColumns, softDelete } from './auditable'
@@ -36,6 +36,8 @@ export const users = mysqlTable(
     password: varchar('password', { length: 72 }).notNull(),
     phone: varchar('phone_number', { length: 18 }).unique().notNull(),
     dob: date('dob').notNull(),
+    emailVerifiedAt: datetime('email_verified_at'),
+    phoneVerifiedAt: datetime('phone_verified_at'),
     gender: varchar('gender', { length: 128, enum: ['male', 'female'] }).notNull(),
     ...auditableAtColumns,
     ...auditableByColumns,
