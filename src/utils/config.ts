@@ -18,10 +18,9 @@ const envSchema = z.object({
     .object({
       host: z.string().trim(),
       port: z.coerce.number().int().min(0).max(65535).default(6379),
-      user: z.string().default('root'),
+      user: z.string().default(''),
       password: z.string().optional(),
       db: z.coerce.number().int().min(0).max(15).default(0),
-      url: z.string().url(),
     })
     .required(),
   jwt: z.object({

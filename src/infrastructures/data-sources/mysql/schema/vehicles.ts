@@ -1,7 +1,7 @@
 import { boolean, int, json, mysqlTable, text, varchar, year } from 'drizzle-orm/mysql-core'
 import { ulid } from 'ulidx'
 
-export const vehicleMakes = mysqlTable('vehicle_brands', {
+export const vehicleMakes = mysqlTable('vehicle_makes', {
   id: varchar('id', { length: 32 })
     .primaryKey()
     .$defaultFn(() => ulid()),
@@ -13,13 +13,12 @@ export const vehicleMakes = mysqlTable('vehicle_brands', {
   isActive: boolean('is_active').default(true),
 })
 
-export const vehicleClassification = mysqlTable('vehicle_classifications', {
-  id: varchar('id', { length: 32 })
-    .primaryKey()
-    .$defaultFn(() => ulid()),
+export const vehicleClassifications = mysqlTable('vehicle_classifications', {
+  id: varchar('id', { length: 32 }).primaryKey(), // use slug as id
   name: varchar('name', { length: 32 }).notNull(),
+  abbrv: varchar('abbrv', { length: 24 }),
   description: varchar('description', { length: 255 }).notNull(),
-  slug: varchar('slug', { length: 32 }).notNull(),
+  // slug: varchar('slug', { length: 32 }).notNull(),
   isActive: boolean('is_active').default(true),
 })
 
@@ -40,6 +39,7 @@ export const vehicleModels = mysqlTable('vehicle_models', {
 export const fuelTypes = mysqlTable('fuel_types', {
   id: varchar('id', { length: 32 }).primaryKey(), // use slug as id
   name: varchar('name', { length: 32 }).notNull(),
+  category: varchar('category', { length: 32, enum: ['diesel', 'gasoline', 'electric'] }).notNull(),
   description: varchar('description', { length: 255 }).notNull(),
 })
 
@@ -47,12 +47,13 @@ export const vehicles = mysqlTable('vehicles', {
   id: varchar('id', { length: 32 })
     .primaryKey()
     .$defaultFn(() => ulid()),
-  brandId: varchar('brand_id', { length: 32 })
-    .notNull()
-    .references(() => vehicleMakes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
+  makeId: varchar('make_id', { length: 32 }).references(() => vehicleMakes.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+  }),
   classificationId: varchar('classification_id', { length: 32 })
     .notNull()
-    .references(() => vehicleClassification.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
+    .references(() => vehicleClassifications.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
   modelId: varchar('model_id', { length: 32 })
     .notNull()
     .references(() => vehicleModels.id, { onDelete: 'cascade', onUpdate: 'cascade' }),

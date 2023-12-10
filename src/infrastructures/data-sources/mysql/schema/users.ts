@@ -33,7 +33,7 @@ export const users = mysqlTable(
       .$defaultFn(() => ulid()),
     fullName: varchar('full_name', { length: 64 }).notNull(),
     email: varchar('email', { length: 128 }).unique().notNull(),
-    password: varchar('password', { length: 72 }).notNull(),
+    password: varchar('password', { length: 128 }).notNull(),
     phone: varchar('phone_number', { length: 18 }).unique().notNull(),
     dob: date('dob').notNull(),
     emailVerifiedAt: datetime('email_verified_at'),

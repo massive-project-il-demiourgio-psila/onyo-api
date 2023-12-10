@@ -29,6 +29,20 @@
       "when": 1701976438439,
       "tag": "0003_old_bastion",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1702060856363,
+      "tag": "0004_next_stephen_strange",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1702229072211,
+      "tag": "0005_broad_smiling_tiger",
+      "breakpoints": true
     }
   ]
 }

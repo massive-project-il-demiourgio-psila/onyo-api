@@ -1,21 +1,10 @@
 import { drizzle } from 'drizzle-orm/mysql2'
-import mysql from 'mysql2/promise'
 import { Logger } from 'drizzle-orm'
+import logger from '@/libs/logger'
+import pool from './pool'
 import * as schema from './schema'
-import logger from '../../../libs/logger'
-import env from '../../../utils/config'
 
-const { host, port, user, password, dbname: database } = env.mysql
-
-const poolConnection = mysql.createPool({
-  host,
-  port,
-  user,
-  password,
-  database,
-})
-
-const db = drizzle(poolConnection, {
+const db = drizzle(pool, {
   mode: 'default',
   schema,
   logger: new (class implements Logger {
