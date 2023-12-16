@@ -21,9 +21,10 @@ class AuthHandler {
 
   postUserLogout = async (req: Request, res: Response) => {
     const { refreshToken } = req.body
+    const { sub: id } = req.user! as any
 
     const logoutUseCase = this.container.resolve(LogoutUserUseCase)
-    await logoutUseCase.execute(refreshToken)
+    await logoutUseCase.execute(refreshToken, id)
 
     res.json({ message: 'Token revoked' })
   }

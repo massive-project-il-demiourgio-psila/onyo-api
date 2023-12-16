@@ -14,7 +14,8 @@
     "prepare": "husky install",
     "start:dev": "bun src/index.ts",
     "start:watch": "bun --watch src/index.ts",
-    "migrate:up": "bun run src/infrastructures/data-sources/mysql/migrate.ts"
+    "migrate:up": "bun run src/infrastructures/data-sources/mysql/migrate.ts",
+    "build": "tsc --build"
   },
   "lint-staged": {
     "**/*.{js,ts}": [
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "argon2": "^0.31.2",
+    "aws-sdk": "^2.1520.0",
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",

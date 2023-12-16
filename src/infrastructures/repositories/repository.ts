@@ -12,10 +12,13 @@ class Repository {
 
   protected redis?: RedisClientType
 
+  protected idGenerator?: () => string
+
   constructor(
     @inject(DiTokens.Pool) pool: Pool,
     @inject(DiTokens.Drizzle) drizzle?: MySqlDrizzleSchema,
     @inject(DiTokens.Redis) redis?: RedisClientType,
+    @inject(DiTokens.IdGenerator) idGenerator?: () => string,
   ) {
     if (this.constructor.name === Repository.name || this.constructor.name === '') {
       throw new Error('class should not be instantiated')
@@ -24,6 +27,7 @@ class Repository {
     this.pool = pool
     this.drizzle = drizzle
     this.redis = redis
+    this.idGenerator = idGenerator
   }
 }
 

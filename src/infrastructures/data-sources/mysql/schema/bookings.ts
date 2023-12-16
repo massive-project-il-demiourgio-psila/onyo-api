@@ -42,6 +42,7 @@ export const bookings = mysqlTable('bookings', {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
+  code: varchar('code', { length: 32 }).notNull(),
   startAt: datetime('start_at').notNull(),
   endAt: datetime('end_at').notNull(),
   amount: int('amount').notNull(),

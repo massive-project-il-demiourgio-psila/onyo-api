@@ -8,7 +8,7 @@ class GetVehicleUseCase {
   }
 
   async execute(payload: unknown) {
-    // TODO filters by make, seats, transmissionm, classifications
+    // TODO filters by make, seats, transmission, classifications
   }
 }
 

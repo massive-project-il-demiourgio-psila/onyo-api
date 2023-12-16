@@ -5,6 +5,10 @@ class DiTokens {
 
   public static readonly Redis = Symbol('Redis')
 
+  public static readonly IdGenerator = Symbol('IdGenerator')
+
+  public static readonly PasswordHash = Symbol('PasswordHash')
+
   public static readonly HelloWorldRepository = Symbol('HelloWorldRepository')
 
   public static readonly AuthRepository = Symbol('AuthRepository')

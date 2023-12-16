@@ -12,13 +12,15 @@ class AuthRepository extends Repository implements IAuthRepository {
     return !!inserted.affectedRows
   }
 
-  async checkTokenAvailability(token: string): Promise<void> {
+  async getToken(token: string): Promise<string> {
     const sql = `SELECT token FROM auth_tokens WHERE token = ? LIMIT 1`
     const [rows] = await this.pool.execute<RowDataPacket[]>(sql, [token])
 
     if (rows[0] == null) {
       throw new NotFoundError('Token not found')
     }
+
+    return rows[0].token
   }
 
   async deleteToken(token: string): Promise<boolean> {

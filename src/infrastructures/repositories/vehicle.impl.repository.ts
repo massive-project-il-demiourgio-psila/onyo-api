@@ -53,7 +53,7 @@ class VehicleRepository extends Repository implements IVehicleRepository {
       values.push(transmission)
     }
 
-    // throw new Error("Method not implemented.");
+    const [rows] = await this.pool.execute(sql, values)
   }
 }
 

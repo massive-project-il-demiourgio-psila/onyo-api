@@ -1,5 +1,5 @@
 export interface IAuthRepository {
   addToken(token: string): Promise<boolean>
-  checkTokenAvailability(token: string): Promise<void>
+  getToken(token: string): Promise<string>
   deleteToken(token: string): Promise<boolean>
 }

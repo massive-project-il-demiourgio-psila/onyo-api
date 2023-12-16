@@ -1,4 +1,4 @@
-import { boolean, int, json, mysqlTable, text, varchar, year } from 'drizzle-orm/mysql-core'
+import { boolean, int, json, mysqlTable, varchar, year } from 'drizzle-orm/mysql-core'
 import { ulid } from 'ulidx'
 
 export const vehicleMakes = mysqlTable('vehicle_makes', {
@@ -7,7 +7,7 @@ export const vehicleMakes = mysqlTable('vehicle_makes', {
     .$defaultFn(() => ulid()),
   name: varchar('name', { length: 32 }).notNull(),
   slug: varchar('slug', { length: 32 }).notNull(),
-  logo: text('logo'),
+  logo: varchar('logo', { length: 256 }),
   vehicleCount: int('vehicle_count').default(0),
   vehicleModelCount: int('vehicle_model_count').default(0),
   isActive: boolean('is_active').default(true),
@@ -34,6 +34,7 @@ export const vehicleModels = mysqlTable('vehicle_models', {
   slug: varchar('slug', { length: 32 }).notNull(),
   vehicleCount: int('vehicle_count').default(0),
   isActive: boolean('is_active').default(true),
+  refImagePath: varchar('reference_image_path', { length: 256 }),
 })
 
 export const fuelTypes = mysqlTable('fuel_types', {
@@ -72,6 +73,8 @@ export const vehicles = mysqlTable('vehicles', {
     .notNull()
     .default('maintenance'),
   aircon: int('air_conditioner'), // (where 0 = doesn't exist AND 5 = like new)
+  imagePath: varchar('image_path', { length: 512 }),
+  images: json('images').$type<string[]>().default([]),
   extraAttrs: json('extra_attributes')
     .$type<VehicleExtraAttributes>()
     .default({ color: null, noOfDoors: 0, noOfAirbags: 0, noOfGears: 0 }),

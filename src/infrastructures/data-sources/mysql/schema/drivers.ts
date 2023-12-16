@@ -1,4 +1,4 @@
-import { boolean, mysqlTable, varchar } from 'drizzle-orm/mysql-core'
+import { datetime, mysqlTable, varchar } from 'drizzle-orm/mysql-core'
 import { ulid } from 'ulidx'
 import { auditableAtColumns, auditableByColumns } from './auditable'
 
@@ -8,8 +8,12 @@ export const drivers = mysqlTable('drivers', {
     .primaryKey()
     .$defaultFn(() => ulid()),
   fullName: varchar('full_name', { length: 64 }).notNull(),
-  phone: varchar('phone_number', { length: 18 }).unique().notNull(),
-  isVerified: boolean('is_verified').notNull().default(false),
+  phone: varchar('phone_number', { length: 18 }).notNull(),
+  email: varchar('email', { length: 256 }),
+  ktpVerifiedAt: datetime('ktp_verified_at'),
+  simVerifiedAt: datetime('sim_verified_at'),
+  ktpPath: varchar('ktp_path', { length: 256 }),
+  simPath: varchar('sim_path', { length: 256 }),
   ...auditableAtColumns,
   ...auditableByColumns,
 })
