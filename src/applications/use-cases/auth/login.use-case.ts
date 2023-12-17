@@ -8,7 +8,7 @@ import type { IAuthRepository } from '@/domains/repositories/auth.repository'
 import type { IUserRepository } from '@/domains/repositories/user.repository'
 import { TokenType, signToken } from '@/infrastructures/security/jwt-manager'
 import DiTokens from '@/infrastructures/di-tokens'
-import type PasswordHash from '@/applications/security/password-hash'
+import type IPasswordHash from '@/applications/security/password-hash'
 
 @autoInjectable()
 class LoginUserUseCase {
@@ -16,12 +16,12 @@ class LoginUserUseCase {
 
   private authRepository: IAuthRepository
 
-  private passwordHash: PasswordHash
+  private passwordHash: IPasswordHash
 
   constructor(
     @inject(DiTokens.UserRepository) userRepository: IUserRepository,
     @inject(DiTokens.AuthRepository) authRepository: IAuthRepository,
-    @inject(DiTokens.PasswordHash) passwordHash: PasswordHash,
+    @inject(DiTokens.PasswordHash) passwordHash: IPasswordHash,
   ) {
     this.userRepository = userRepository
     this.authRepository = authRepository

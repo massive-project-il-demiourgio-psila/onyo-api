@@ -8,17 +8,17 @@ import DiTokens from '../di-tokens'
 class Repository {
   protected pool: Pool
 
+  protected redis: RedisClientType
+
+  protected idGenerator: () => string
+
   protected drizzle?: MySqlDrizzleSchema
-
-  protected redis?: RedisClientType
-
-  protected idGenerator?: () => string
 
   constructor(
     @inject(DiTokens.Pool) pool: Pool,
+    @inject(DiTokens.Redis) redis: RedisClientType,
+    @inject(DiTokens.IdGenerator) idGenerator: () => string,
     @inject(DiTokens.Drizzle) drizzle?: MySqlDrizzleSchema,
-    @inject(DiTokens.Redis) redis?: RedisClientType,
-    @inject(DiTokens.IdGenerator) idGenerator?: () => string,
   ) {
     if (this.constructor.name === Repository.name || this.constructor.name === '') {
       throw new Error('class should not be instantiated')

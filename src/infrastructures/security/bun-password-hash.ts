@@ -1,9 +1,9 @@
-import PasswordHash from '@/applications/security/password-hash'
+import IPasswordHash from '@/applications/security/password-hash'
 import AuthenticationError from '@/commons/exceptions/authentication.error'
 import { singleton } from 'tsyringe'
 
 @singleton()
-class BunPasswordHash implements PasswordHash {
+class BunPasswordHash implements IPasswordHash {
   async hash(password: string): Promise<string> {
     return Bun.password.hash(password)
   }

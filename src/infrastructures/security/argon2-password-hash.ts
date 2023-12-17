@@ -1,10 +1,10 @@
-import PasswordHash from '@/applications/security/password-hash'
+import IPasswordHash from '@/applications/security/password-hash'
 import AuthenticationError from '@/commons/exceptions/authentication.error'
 import * as argon2 from 'argon2'
 import { singleton } from 'tsyringe'
 
 @singleton()
-class Argon2PasswordHash implements PasswordHash {
+class Argon2PasswordHash implements IPasswordHash {
   async hash(password: string): Promise<string> {
     return argon2.hash(password)
   }

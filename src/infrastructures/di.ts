@@ -11,6 +11,7 @@ import VehicleRepository from './repositories/vehicle.impl.repository'
 import BookingRepository from './repositories/booking.impl.repository'
 import BunPasswordHash from './security/bun-password-hash'
 import Argon2PasswordHash from './security/argon2-password-hash'
+import S3FileStorage from './storage/s3-file-storage'
 
 export default function initContainerRegistry() {
   container
@@ -18,6 +19,7 @@ export default function initContainerRegistry() {
     .register(DiTokens.Drizzle, { useValue: drizzle })
     .register(DiTokens.Redis, { useValue: redis })
     .register(DiTokens.IdGenerator, { useValue: ulid })
+    .register(DiTokens.FileStorage, { useClass: S3FileStorage })
     .register(DiTokens.PasswordHash, { useClass: process.versions.bun ? BunPasswordHash : Argon2PasswordHash }) // node.js compatibility
     .register(DiTokens.HelloWorldRepository, { useClass: HelloWorldRepository })
     .register(DiTokens.AuthRepository, { useClass: AuthRepository })

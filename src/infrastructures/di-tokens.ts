@@ -9,6 +9,8 @@ class DiTokens {
 
   public static readonly PasswordHash = Symbol('PasswordHash')
 
+  public static readonly FileStorage = Symbol('FileStorage')
+
   public static readonly HelloWorldRepository = Symbol('HelloWorldRepository')
 
   public static readonly AuthRepository = Symbol('AuthRepository')

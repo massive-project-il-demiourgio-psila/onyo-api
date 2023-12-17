@@ -1,4 +1,4 @@
-import type PasswordHash from '@/applications/security/password-hash'
+import type IPasswordHash from '@/applications/security/password-hash'
 import RegisterUser from '@/domains/entities/users/register-user.entity'
 import { type IPermissionRepository } from '@/domains/repositories/permission.repository'
 import { type IRoleRepository } from '@/domains/repositories/role.repository'
@@ -14,13 +14,13 @@ class AddUserUseCase {
 
   private permissionRepo: IPermissionRepository
 
-  private passwordHash: PasswordHash
+  private passwordHash: IPasswordHash
 
   constructor(
     @inject(DiTokens.UserRepository) userRepository: IUserRepository,
     @inject(DiTokens.RoleRepository) roleRepository: IRoleRepository,
     @inject(DiTokens.PermissionRepository) permissionRepo: IPermissionRepository,
-    @inject(DiTokens.PasswordHash) passwordHash: PasswordHash,
+    @inject(DiTokens.PasswordHash) passwordHash: IPasswordHash,
   ) {
     this.userRepository = userRepository
     this.roleRepository = roleRepository

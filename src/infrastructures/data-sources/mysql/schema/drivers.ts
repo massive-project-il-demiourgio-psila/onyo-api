@@ -14,6 +14,7 @@ export const drivers = mysqlTable('drivers', {
   simVerifiedAt: datetime('sim_verified_at'),
   ktpPath: varchar('ktp_path', { length: 256 }),
   simPath: varchar('sim_path', { length: 256 }),
+  picture: varchar('picture', { length: 256 }),
   ...auditableAtColumns,
   ...auditableByColumns,
 })

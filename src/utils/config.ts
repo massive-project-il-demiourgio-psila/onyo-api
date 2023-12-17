@@ -30,6 +30,12 @@ const envSchema = z.object({
     refreshTokenSecret: z.string().trim(),
     accessTokenAge: z.coerce.number().default(600),
   }),
+  aws: z.object({
+    region: z.string().trim(),
+    bucket: z.string().trim(),
+    accessKey: z.string().trim(),
+    secretKey: z.string().trim(),
+  }),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
 })
 
@@ -59,6 +65,12 @@ const parsedEnv = envSchema.safeParse({
     accessTokenAge: process.env.JWT_ACCESS_TOKEN_AGE,
     accessTokenSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
     refreshTokenSecret: process.env.JWT_REFRESH_TOKEN_SECRET,
+  },
+  aws: {
+    region: process.env.AWS_BUCKET_REGION,
+    bucket: process.env.AWS_BUCKET_NAME,
+    accessKey: process.env.AWS_ACCESS_KEY,
+    secretKey: process.env.AWS_SECRET_ACCESS_KEY,
   },
   NODE_ENV: process.env.NODE_ENV,
 })
