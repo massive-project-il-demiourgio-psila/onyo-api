@@ -9,4 +9,5 @@ export interface IUserRepository {
   getUserById(id: string): Promise<User>
   getUserByEmail(email: string): Promise<User>
   getUserRoleByUserId(id: string): Promise<string>
+  getUserWithProfileByUserId(id: string): Promise<User>
 }

@@ -1,4 +1,4 @@
-import { mysqlTable, varchar } from 'drizzle-orm/mysql-core'
+import { mysqlTable, text, tinyint, varchar } from 'drizzle-orm/mysql-core'
 import { ulid } from 'ulidx'
 import { users } from './users'
 import { bookings } from './bookings'
@@ -20,6 +20,8 @@ export const reviews = mysqlTable('reviews', {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
+  rating: tinyint('rating'),
+  content: text('content'),
   ...auditableAtColumns,
   ...auditableByColumns,
 })

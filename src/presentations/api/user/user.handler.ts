@@ -1,6 +1,7 @@
 import { Response, Request } from 'express'
 import { DependencyContainer } from 'tsyringe'
 import AddUserUseCase from '@/applications/use-cases/users/add-user.use-case'
+import GetSingleUserUseCase from '../../../applications/use-cases/users/get-user.use-case'
 
 class UserHandler {
   private container: DependencyContainer
@@ -19,7 +20,10 @@ class UserHandler {
   }
 
   getMyProfile = async (req: Request, res: Response) => {
-    res.json(req.user)
+    const getSingleUserUseCase = this.container.resolve(GetSingleUserUseCase)
+    const user = await getSingleUserUseCase.execute(req.user?.sub)
+
+    res.json(user)
   }
 }
 

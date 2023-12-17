@@ -105,6 +105,19 @@ class UserRepository extends Repository implements IUserRepository {
 
     return rows[0]!.name
   }
+
+  async getUserWithProfileByUserId(id: string) {
+    const [rows] = await this.pool.query<RowDataPacket[]>(
+      `SELECT u.full_name, u.email, u.phone_number, u.dob, u.gender, up.address, up.picture FROM users u
+      INNER JOIN user_profiles up ON up.user_id = u.id
+      WHERE u.id = ?`,
+      [id],
+    )
+
+    if (rows[0] === null) throw new NotFoundError('User not found')
+
+    return rows[0]
+  }
 }
 
 export default UserRepository
