@@ -71,6 +71,13 @@
       "when": 1702819070150,
       "tag": "0009_whole_jimmy_woo",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1702928833419,
+      "tag": "0010_wakeful_the_hunter",
+      "breakpoints": true
     }
   ]
 }

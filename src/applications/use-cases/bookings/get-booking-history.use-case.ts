@@ -1,0 +1,25 @@
+import type { IBookingRepository } from '@/domains/repositories/booking.repository'
+import type { IUserRepository } from '@/domains/repositories/user.repository'
+import DiTokens from '@/infrastructures/di-tokens'
+import { inject, injectable } from 'tsyringe'
+
+@injectable()
+class GetBookingHistoryUseCase {
+  private bookingRepository: IBookingRepository
+
+  private userRepository: IUserRepository
+
+  constructor(
+    @inject(DiTokens.BookingRepository) bookingRepository: IBookingRepository,
+    @inject(DiTokens.UserRepository) userRepository: IUserRepository,
+  ) {
+    this.bookingRepository = bookingRepository
+    this.userRepository = userRepository
+  }
+
+  async execute() {
+    // with review stars
+  }
+}
+
+export default GetBookingHistoryUseCase

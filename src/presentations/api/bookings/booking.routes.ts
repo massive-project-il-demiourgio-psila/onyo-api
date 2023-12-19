@@ -6,7 +6,7 @@ const bookingRouter = (handler: BookingHandler) => {
   const router = Router()
 
   router.post('/', handler.postBooking)
-  router.put('/invoices', upload.single('payment_proof'), handler.postBooking)
+  router.put('/:bookingId/invoice', upload.single('payment_proof'), handler.postInvoice)
 
   return router
 }

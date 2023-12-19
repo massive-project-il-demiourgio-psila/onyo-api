@@ -1,6 +1,6 @@
 import { autoInjectable, inject } from 'tsyringe'
 
-import { Login } from '@/domains/entities/users/user-login.entity'
+import { Login, loginSchema } from '@/domains/entities/users/user-login.entity'
 import PayloadUser from '@/domains/entities/auths/user-jwt-payload.entity'
 import NewAuth from '@/domains/entities/auths/new-auth.entity'
 
@@ -29,11 +29,15 @@ class LoginUserUseCase {
   }
 
   async execute(payload: Login) {
-    const hashedPwd = await this.userRepository.getPasswordByEmail(payload.email)
+    loginSchema.parse(payload)
 
-    await this.passwordHash.comparePassword(hashedPwd, payload.password)
+    const { email, password } = payload
 
-    const user = await this.userRepository.getUserByEmail(payload.email)
+    const hashedPwd = await this.userRepository.getPasswordByEmail(email)
+
+    await this.passwordHash.comparePassword(hashedPwd, password)
+
+    const user = await this.userRepository.getUserByEmail(email)
     const role = await this.userRepository.getUserRoleByUserId(user.id)
 
     const jwtPayload: PayloadUser = {

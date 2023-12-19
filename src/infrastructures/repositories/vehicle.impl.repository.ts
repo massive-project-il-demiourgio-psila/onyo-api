@@ -9,6 +9,7 @@ import {
 import { ResultSetHeader, RowDataPacket } from 'mysql2'
 import NotFoundError from '@/commons/exceptions/not-found.error'
 import { singleton } from 'tsyringe'
+import { VehicleInDB, mapVehicleFromDB } from '@/domains/mapping/vehicle.map'
 import Repository from './repository'
 
 @singleton()
@@ -116,9 +117,9 @@ class VehicleRepository extends Repository implements IVehicleRepository {
       values.push(transmission)
     }
 
-    const [rows] = await this.pool.query<Vehicle[] & RowDataPacket[]>(sql, values)
+    const [rows] = await this.pool.query<VehicleInDB[] & RowDataPacket[]>(sql, values)
 
-    return rows.map((v) => ({ ...v, extraAttributes: JSON.parse(v.extra_attributes as string) }))
+    return rows.map((v) => mapVehicleFromDB(v))
   }
 
   async addVehicleClassification(data: NewVehicleClassification): Promise<void> {

@@ -40,6 +40,7 @@ export type Vehicle = {
   makeId: string
   modelId: string
   classificationId: string
+  name?: string
   fuelTypeId: string
   perDayAmount: number | null
   perHourAmount: number | null

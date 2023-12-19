@@ -1,6 +1,7 @@
 interface IDriverRepository {
   addDriver(data: unknown): Promise<void>
   getAllDrivers(): Promise<void>
+  getSingleRandomDriver(): Promise<string>
   getDriverById(id: string): Promise<void>
   updateDriverById(id: string, data: unknown): Promise<void>
   deleteDriverById(id: string): Promise<void>

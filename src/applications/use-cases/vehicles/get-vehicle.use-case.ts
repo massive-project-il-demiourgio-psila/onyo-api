@@ -23,7 +23,7 @@ class GetVehicleUseCase {
   async execute(payload: Partial<FilterBy>): Promise<Vehicle[]> {
     const result = await this.vehicleRepository.getVehicleCategoriesForCatalogue(payload)
 
-    return result.map((v) => ({ ...v, image_path: this.fileStorage.getUrl(v.image_path, Paths.VehicleModelRefImage) }))
+    return result.map((v) => ({ ...v, imagePath: this.fileStorage.getUrl(v.imagePath, Paths.VehicleModelRefImage) }))
   }
 }
 

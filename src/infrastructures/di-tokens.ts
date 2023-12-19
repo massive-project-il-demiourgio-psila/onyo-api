@@ -24,6 +24,10 @@ class DiTokens {
   public static readonly VehicleRepository = Symbol('VehicleRepository')
 
   public static readonly BookingRepository = Symbol('BookingRepository')
+
+  public static readonly ReviewRepository = Symbol('ReviewRepository')
+
+  public static readonly DriverRepository = Symbol('DriverRepository')
 }
 
 export default DiTokens

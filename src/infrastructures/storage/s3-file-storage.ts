@@ -32,8 +32,10 @@ class S3FileStorage implements FileStorage {
     )
   }
 
-  getUrl(fileName: string, path: string): string {
-    return `https://${Bucket}.s3.${region}.amazonaws.com/${S3FileStorage.getFullPath(fileName, path)}`
+  getUrl(fileName: string | null, path: string): string | null {
+    return fileName !== null
+      ? `https://${Bucket}.s3.${region}.amazonaws.com/${S3FileStorage.getFullPath(fileName, path)}`
+      : null
   }
 
   async getPresignedUrl(fileName: string, path: string): Promise<string> {

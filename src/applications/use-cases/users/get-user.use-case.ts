@@ -1,4 +1,3 @@
-import RegisterUser from '@/domains/entities/users/register-user.entity'
 import { type IUserRepository } from '@/domains/repositories/user.repository'
 import DiTokens from '@/infrastructures/di-tokens'
 import { inject, injectable } from 'tsyringe'

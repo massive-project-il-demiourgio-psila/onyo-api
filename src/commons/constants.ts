@@ -9,4 +9,6 @@ export class Paths {
   public static readonly DriverKtp = `${Paths.DriverVerifiable}/idcard`
 
   public static readonly DriverSim = `${Paths.DriverVerifiable}/license`
+
+  public static readonly PaymentProof = 'invoices/payment-proofs'
 }

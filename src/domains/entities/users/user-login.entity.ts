@@ -1,17 +1,8 @@
-export type Login = {
-  email: string
-  password: string
-}
+import z from 'zod'
 
-class UserLogin {
-  public email: string
+export const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+})
 
-  public password: string
-
-  constructor(payload: Login) {
-    this.email = payload.email
-    this.password = payload.password
-  }
-}
-
-export default UserLogin
+export type Login = z.infer<typeof loginSchema>

@@ -21,7 +21,7 @@ class UserHandler {
 
   getMyProfile = async (req: Request, res: Response) => {
     const getSingleUserUseCase = this.container.resolve(GetSingleUserUseCase)
-    const user = await getSingleUserUseCase.execute(req.user?.sub)
+    const user = await getSingleUserUseCase.execute(req.user!.sub)
 
     res.json(user)
   }

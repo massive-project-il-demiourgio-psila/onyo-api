@@ -11,11 +11,11 @@ class VehicleHandler {
   }
 
   getVehicle = async (req: Request, res: Response) => {
-    const { make_ids, class_ids, seats, transmission, start_date: startDate, end_date: endDate } = req.query
+    const { makes, classes, seats, transmission, start_date: startDate, end_date: endDate } = req.query
 
     const payload = {
-      makeIds: make_ids?.split(','),
-      classificationIds: class_ids?.split(','),
+      makeIds: makes?.split(','),
+      classificationIds: classes?.split(','),
       noOfSeats: seats?.split(',').map((v) => +v),
       transmission,
       startDate,

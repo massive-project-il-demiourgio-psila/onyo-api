@@ -1,3 +1,5 @@
+export {}
+
 declare global {
   namespace Express {
     interface User {
@@ -8,6 +10,9 @@ declare global {
       aud: string
       iss: string
       sub: string
+    }
+    export interface Request {
+      user?: User | undefined
     }
   }
 }
