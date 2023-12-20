@@ -108,11 +108,15 @@ class BookingRepository extends Repository implements IBookingRepository {
     return { totalAmount, bookingId }
   }
 
+  async attachInvoiceToBooking(invoiceId: string, bookingId: string): Promise<void> {
+    await this.pool.query('UPDATE bookings SET invoice_id = ? WHERE id = ?', [invoiceId, bookingId])
+  }
+
   addBookingDetail(data: unknown): Promise<void> {
     throw new Error('Method not implemented.')
   }
 
-  async addInvoice(data: NewInvoice): Promise<void> {
+  async addInvoice(data: NewInvoice): Promise<string> {
     const { accountName, amount, receipt } = data
 
     const id = this.idGenerator()
@@ -124,6 +128,8 @@ class BookingRepository extends Repository implements IBookingRepository {
     `
 
     await this.pool.execute(sql, [id, trxId, amount, 'cashless', 'bank-transfer', receipt, accountName, 'pending'])
+
+    return id
   }
 
   getAllBookings(): Promise<void> {

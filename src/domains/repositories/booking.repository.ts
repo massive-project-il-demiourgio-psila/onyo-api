@@ -11,7 +11,8 @@ export interface IBookingRepository {
   getBookingByUserId(userId: string): Promise<void>
   updateBookingById(id: string): Promise<void>
   deleteBookingById(id: string): Promise<void>
-  addInvoice(data: NewInvoice): Promise<void>
+  addInvoice(data: NewInvoice): Promise<string>
+  attachInvoiceToBooking(invoiceId: string, bookingId: string): Promise<void>
 
   updateInvoiceByBookingId(bookingId: string): Promise<void>
 }

@@ -44,7 +44,12 @@ class AddInvoiceUseCase {
 
     await this.fileStorage.upload(buffer, fileName, Paths.PaymentProof)
 
-    await this.bookingRepository.addInvoice({ accountName, amount: booking.amount, receipt: fileName })
+    const invoiceId = await this.bookingRepository.addInvoice({
+      accountName,
+      amount: booking.amount,
+      receipt: fileName,
+    })
+    await this.bookingRepository.attachInvoiceToBooking(invoiceId, booking.id)
   }
 }
 
