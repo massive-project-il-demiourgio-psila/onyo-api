@@ -1,3 +1,5 @@
+import { Invoice } from './invoice.entity'
+
 export type Booking = {
   id: string
   userId: string
@@ -16,4 +18,6 @@ export type Booking = {
   createdBy: string
   updatedBy: string
   code: string
+
+  invoice?: Invoice | null
 }

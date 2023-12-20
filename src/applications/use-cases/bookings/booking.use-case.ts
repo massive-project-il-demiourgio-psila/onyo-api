@@ -1,10 +1,11 @@
+import { Booking } from '@/domains/entities/bookings/booking.entity'
 import type { IBookingRepository } from '@/domains/repositories/booking.repository'
 import type { IUserRepository } from '@/domains/repositories/user.repository'
 import DiTokens from '@/infrastructures/di-tokens'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
-class GetBookingHistoryUseCase {
+class BookingUseCase {
   private bookingRepository: IBookingRepository
 
   private userRepository: IUserRepository
@@ -17,9 +18,11 @@ class GetBookingHistoryUseCase {
     this.userRepository = userRepository
   }
 
-  async execute() {
-    // with review stars
+  async getAllBooking() {
+    const bookings = await this.bookingRepository.getAllBookings()
+
+    return bookings
   }
 }
 
-export default GetBookingHistoryUseCase
+export default BookingUseCase

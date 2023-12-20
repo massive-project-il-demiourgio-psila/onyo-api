@@ -6,8 +6,9 @@ import { NewInvoice } from '@/domains/entities/bookings/add-invoice.entity'
 import moment from 'moment'
 import NotFoundError from '@/commons/exceptions/not-found.error'
 import { BookingInDb, mapBookingFromDb } from '@/domains/mapping/booking.map'
-import { mapVehicleFromDB } from '@/domains/mapping/vehicle.map'
 import { Booking } from '@/domains/entities/bookings/booking.entity'
+import { Invoice } from '@/domains/entities/bookings/invoice.entity'
+import { InvoiceInDb, mapInvoiceFromDb } from '@/domains/mapping/invoice.map'
 import Repository from './repository'
 
 @singleton()
@@ -25,7 +26,10 @@ class BookingRepository extends Repository implements IBookingRepository {
 
     const { count } = rows[0]
 
-    return `${BookingRepository.BOOKING_PREFIX}${new Date().getFullYear()}${String(count).padStart(6, '0')}` as const
+    return `${BookingRepository.BOOKING_PREFIX}${new Date().getFullYear()}${String(count + 1).padStart(
+      6,
+      '0',
+    )}` as const
   }
 
   private async generateInvoiceTrxId(): Promise<string> {
@@ -37,7 +41,10 @@ class BookingRepository extends Repository implements IBookingRepository {
 
     const { count } = rows[0]
 
-    return `${BookingRepository.INVOICE_PREFIX}${moment().format('YYMMDD')}${String(count).padStart(6, '0')}` as const
+    return `${BookingRepository.INVOICE_PREFIX}${moment().format('YYMMDD')}${String(count + 1).padStart(
+      6,
+      '0',
+    )}` as const
   }
 
   async addBooking(data: NewBooking, userId: string): Promise<AddedBooking> {
@@ -132,8 +139,19 @@ class BookingRepository extends Repository implements IBookingRepository {
     return id
   }
 
-  getAllBookings(): Promise<void> {
-    throw new Error('Method not implemented.')
+  async getAllBookings(): Promise<Booking[]> {
+    const sql = `SELECT * FROM bookings`
+    const [rows] = await this.pool.execute<BookingInDb[] & RowDataPacket[]>(sql)
+
+    return rows.map((v) => mapBookingFromDb(v))
+  }
+
+  async getInvoiceById(id: string): Promise<Invoice> {
+    const [rows] = await this.pool.query<InvoiceInDb[] & RowDataPacket[]>('SELECT * FROM invoices WHERE id = ?', [id])
+
+    if (rows[0] == null) throw new NotFoundError()
+
+    return mapInvoiceFromDb(rows[0])
   }
 
   async getBookingById(id: string): Promise<Booking> {

@@ -6,6 +6,7 @@ import type BookingHandler from './booking.handler'
 const bookingRouter = (handler: BookingHandler) => {
   const router = Router()
 
+  router.get('/', authJwt, handler.getBooking)
   router.post('/', authJwt, handler.postBooking)
   router.post('/:bookingId/invoice', upload.single('paymentProof'), authJwt, handler.postInvoice)
 
