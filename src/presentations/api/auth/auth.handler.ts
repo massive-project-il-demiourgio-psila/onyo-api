@@ -21,6 +21,7 @@ class AuthHandler {
     const authTokens = await loginUseCase.execute({ email, password })
     const decoded = (decodeToken(authTokens.accessToken) as Jwt).payload
     const user = await getUserUseCase.execute(decoded.sub! as string)
+    console.log(user)
 
     res.json({ user: { ...user, role: decoded.role }, token: authTokens.accessToken })
   }

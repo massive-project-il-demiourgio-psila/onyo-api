@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const addInvoiceSchema = z.object({
-  accountName: z.string().trim().min(10),
+  accountName: z.string().trim(),
   bookingId: z.string().ulid(),
   userId: z.string().ulid(),
 })
