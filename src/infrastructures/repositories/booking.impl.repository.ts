@@ -165,6 +165,29 @@ class BookingRepository extends Repository implements IBookingRepository {
     return mapBookingFromDb(rows[0] as BookingInDb)
   }
 
+  async verifyBooking(bookingId: string): Promise<void> {
+    const db = await this.pool.getConnection()
+
+    try {
+      await db.beginTransaction()
+
+      const [rows] = await db.execute<RowDataPacket[]>('SELECT * FROM bookings WHERE id = ?', [bookingId])
+
+      if (rows[0] == null) throw new NotFoundError('Booking not found')
+
+      await db.execute('UPDATE bookings SET status = ? WHERE id = ?', ['on-going', bookingId])
+      await db.execute('UPDATE invoices SET status = ? WHERE id = ?', ['success', rows[0].invoice_id])
+
+      await db.commit()
+    } catch (error) {
+      await db.rollback()
+
+      throw error
+    } finally {
+      await db.release()
+    }
+  }
+
   getBookingByUserId(userId: string): Promise<void> {
     throw new Error('Method not implemented.')
   }

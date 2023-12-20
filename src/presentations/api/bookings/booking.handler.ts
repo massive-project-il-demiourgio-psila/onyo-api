@@ -48,6 +48,21 @@ class BookingHandler {
 
     res.status(201).json({ message: 'success' })
   }
+
+  updateBookingValidatePayment = async (req: Request, res: Response) => {
+    const { role } = req.user!
+    const bookingId = req.params.bookingId as string
+
+    const bookingUseCase = this.container.resolve(BookingUseCase)
+
+    if (role === 'user') {
+      throw new AuthorizationError() // get history instead
+    }
+
+    await bookingUseCase.verifyBookingPayment(bookingId)
+
+    res.json({ message: 'success' })
+  }
 }
 
 export default BookingHandler

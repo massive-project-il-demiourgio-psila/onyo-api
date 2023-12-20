@@ -23,6 +23,11 @@ class BookingUseCase {
 
     return bookings
   }
+
+  async verifyBookingPayment(bookingId: string) {
+    console.log(bookingId)
+    await this.bookingRepository.verifyBooking(bookingId)
+  }
 }
 
 export default BookingUseCase

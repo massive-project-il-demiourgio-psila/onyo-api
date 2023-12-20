@@ -5,7 +5,6 @@ import LogoutUserUseCase from '@/applications/use-cases/auth/logout.use-case'
 import GetSingleUserUseCase from '@/applications/use-cases/users/get-user.use-case'
 import { decodeToken } from '@/infrastructures/security/jwt-manager'
 import { Jwt } from 'jsonwebtoken'
-import { roles } from '../../../infrastructures/data-sources/mysql/schema/users'
 
 class AuthHandler {
   private container: DependencyContainer
@@ -28,7 +27,7 @@ class AuthHandler {
 
   postUserLogout = async (req: Request, res: Response) => {
     const { refreshToken } = req.body
-    const { sub: id } = req.user! as any
+    const { sub: id } = req.user!
 
     const logoutUseCase = this.container.resolve(LogoutUserUseCase)
     await logoutUseCase.execute(refreshToken, id)

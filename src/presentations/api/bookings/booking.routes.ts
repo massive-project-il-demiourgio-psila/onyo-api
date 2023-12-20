@@ -9,6 +9,7 @@ const bookingRouter = (handler: BookingHandler) => {
   router.get('/', authJwt, handler.getBooking)
   router.post('/', authJwt, handler.postBooking)
   router.post('/:bookingId/invoice', upload.single('paymentProof'), authJwt, handler.postInvoice)
+  router.put('/:bookingId/invoice/verify', authJwt, handler.updateBookingValidatePayment)
 
   return router
 }
