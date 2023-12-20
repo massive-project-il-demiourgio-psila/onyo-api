@@ -9,6 +9,7 @@ import DiTokens from './di-tokens'
 import AuthRepository from './repositories/auth.impl.repository'
 import VehicleRepository from './repositories/vehicle.impl.repository'
 import BookingRepository from './repositories/booking.impl.repository'
+import DriverRepository from './repositories/driver.impl.repository'
 import BunPasswordHash from './security/bun-password-hash'
 import Argon2PasswordHash from './security/argon2-password-hash'
 import S3FileStorage from './storage/s3-file-storage'
@@ -26,6 +27,7 @@ export default function initContainerRegistry() {
     .register(DiTokens.UserRepository, { useClass: UserRepository })
     .register(DiTokens.VehicleRepository, { useClass: VehicleRepository })
     .register(DiTokens.BookingRepository, { useClass: BookingRepository })
+    .register(DiTokens.DriverRepository, { useClass: DriverRepository })
   // RoleRepository
   // PermissionRepository
   return container

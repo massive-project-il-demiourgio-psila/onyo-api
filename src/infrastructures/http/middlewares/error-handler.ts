@@ -20,7 +20,7 @@ const errorHandler = async (err: Error, _req: Request, res: Response, _: NextFun
     })
   }
 
-  logger.error(`${err.name}:: ${err.message}`)
+  logger.error(`${err.name}:: ${err.message}\n${err.stack}`)
   return res.status(500).json({
     status: 'error',
     message: 'Internal server error',

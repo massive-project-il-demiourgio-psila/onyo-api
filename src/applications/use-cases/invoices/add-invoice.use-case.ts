@@ -39,7 +39,7 @@ class AddInvoiceUseCase {
     const user = await this.userRepository.getUserById(userId)
     const booking = await this.bookingRepository.getBookingById(bookingId)
 
-    const fileHashName = `${user.id}.${booking.id}`
+    const fileHashName = `${user.id}.${booking}`
     const fileName = `${hashFilename(fileHashName)}.${mime.getExtension(mimetype)}`
 
     await this.fileStorage.upload(buffer, fileName, Paths.PaymentProof)

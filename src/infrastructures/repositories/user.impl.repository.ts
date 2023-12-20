@@ -7,19 +7,19 @@ import Repository from './repository'
 
 interface UserInDB extends RowDataPacket {
   id: string
-  fullName: string
+  full_name: string
   email: string
   password: string
-  phone: string
+  phone_number: string
   dob: Date
-  emailVerifiedAt: Date
-  phoneVerifiedAt: Date
+  email_verified_at: Date
+  phone_verified_at: Date
   gender: string
-  createdAt: Date
-  updatedAt: Date
-  createdBy: Date
-  updatedBy: Date
-  isDeleted: boolean
+  created_at: Date
+  updated_at: Date
+  created_by: Date
+  updated_by: Date
+  is_deleted: boolean
 }
 
 class UserRepository extends Repository implements IUserRepository {
@@ -53,7 +53,7 @@ class UserRepository extends Repository implements IUserRepository {
       throw new NotFoundError('User not found')
     }
 
-    const { id, dob, email, fullName, gender, phone } = users[0]
+    const { id, dob, email, full_name: fullName, gender, phone_number: phone } = users[0]
 
     return new User({
       id,

@@ -2,9 +2,9 @@ import z from 'zod'
 
 export const addBookingPayloadSchema = z.object({
   onBehalfOfUser: z.boolean(),
-  onBehalfOfName: z.string().trim().min(6).nullable(),
-  onBehalfOfEmail: z.string().trim().min(10).nullable(),
-  onBehalfOfPhone: z.string().trim().min(15).nullable(),
+  onBehalfOfName: z.string().trim().nullable(),
+  onBehalfOfEmail: z.string().trim().nullable(),
+  onBehalfOfPhone: z.string().trim().nullable(),
   vehicleId: z.string().ulid(),
   bookingType: z.string(),
   startDate: z.coerce.date().refine((data) => data >= new Date(), { message: 'Start date must be in the future' }),

@@ -28,9 +28,9 @@ class BookingHandler {
     const { sub: userId } = req.user!
 
     const addInvoiceUseCase = this.container.resolve(AddInvoiceUseCase)
-    const result = await addInvoiceUseCase.execute({ accountName, bookingId, userId }, { buffer, mimetype })
+    await addInvoiceUseCase.execute({ accountName, bookingId, userId }, { buffer, mimetype })
 
-    res.status(201).json(result)
+    res.status(201).json({ message: 'success' })
   }
 }
 

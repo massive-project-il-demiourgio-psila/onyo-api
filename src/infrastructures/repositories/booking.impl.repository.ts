@@ -4,6 +4,10 @@ import { singleton } from 'tsyringe'
 import { RowDataPacket } from 'mysql2'
 import { NewInvoice } from '@/domains/entities/bookings/add-invoice.entity'
 import moment from 'moment'
+import NotFoundError from '@/commons/exceptions/not-found.error'
+import { BookingInDb, mapBookingFromDb } from '@/domains/mapping/booking.map'
+import { mapVehicleFromDB } from '@/domains/mapping/vehicle.map'
+import { Booking } from '@/domains/entities/bookings/booking.entity'
 import Repository from './repository'
 
 @singleton()
@@ -64,10 +68,12 @@ class BookingRepository extends Repository implements IBookingRepository {
     VALUES (?,?,?,?,?,?)
     `
 
-    try {
-      await this.pool.beginTransaction()
+    const db = await this.pool.getConnection()
 
-      await this.pool.query(addBookingQuery, [
+    try {
+      await db.beginTransaction()
+
+      await db.query(addBookingQuery, [
         bookingId,
         userId,
         vehicleId,
@@ -81,7 +87,7 @@ class BookingRepository extends Repository implements IBookingRepository {
         userId,
         bookingCode,
       ])
-      await this.pool.query(addBookingDetailQuery, [
+      await db.query(addBookingDetailQuery, [
         bookingDetailId,
         bookingId,
         onBehalfOfName,
@@ -90,11 +96,13 @@ class BookingRepository extends Repository implements IBookingRepository {
         userId,
       ])
 
-      await this.pool.commit()
+      await db.commit()
     } catch (error) {
-      await this.pool.rollback()
+      await db.rollback()
 
-      throw new Error('Failed to add booking')
+      throw error
+    } finally {
+      await db.release()
     }
 
     return { totalAmount, bookingId }
@@ -108,22 +116,29 @@ class BookingRepository extends Repository implements IBookingRepository {
     const { accountName, amount, receipt } = data
 
     const id = this.idGenerator()
-    const trxId = this.generateInvoiceTrxId()
+    const trxId = await this.generateInvoiceTrxId()
 
     const sql = `
     INSERT INTO invoices (id, trx_id, amount, payment_type, payment_channel, receipt, account_name, status)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `
 
-    await this.pool.query(sql, [id, trxId, amount, 'cashless', 'bank-transfer', receipt, accountName, 'pending'])
+    await this.pool.execute(sql, [id, trxId, amount, 'cashless', 'bank-transfer', receipt, accountName, 'pending'])
   }
 
   getAllBookings(): Promise<void> {
     throw new Error('Method not implemented.')
   }
 
-  getBookingById(id: string): Promise<void> {
-    throw new Error('Method not implemented.')
+  async getBookingById(id: string): Promise<Booking> {
+    const sql = `SELECT * FROM bookings WHERE id = ?`
+    const [rows] = await this.pool.execute<BookingInDb[] & RowDataPacket[]>(sql, [id])
+
+    if (rows[0] == null) {
+      throw new NotFoundError('Booking not found')
+    }
+
+    return mapBookingFromDb(rows[0] as BookingInDb)
   }
 
   getBookingByUserId(userId: string): Promise<void> {

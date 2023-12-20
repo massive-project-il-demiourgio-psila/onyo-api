@@ -1,7 +1,9 @@
 import IDriverRepository from '@/domains/repositories/driver.repository'
 import { RowDataPacket } from 'mysql2'
+import { singleton } from 'tsyringe'
 import Repository from './repository'
 
+@singleton()
 class DriverRepository extends Repository implements IDriverRepository {
   addDriver(data: unknown): Promise<void> {
     throw new Error('Method not implemented.')
@@ -39,3 +41,5 @@ class DriverRepository extends Repository implements IDriverRepository {
     throw new Error('Method not implemented.')
   }
 }
+
+export default DriverRepository

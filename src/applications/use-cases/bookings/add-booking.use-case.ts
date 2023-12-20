@@ -30,10 +30,10 @@ class AddBookingUseCase {
   }
 
   async execute(payload: AddBooking, userId: string) {
-    addBookingPayloadSchema.parse(payload)
+    const data = addBookingPayloadSchema.parse(payload)
 
-    let { onBehalfOfName, onBehalfOfEmail, onBehalfOfPhone } = payload
-    const { onBehalfOfUser, vehicleId, bookingType, startDate, endDate } = payload
+    let { onBehalfOfName, onBehalfOfEmail, onBehalfOfPhone } = data
+    const { onBehalfOfUser, vehicleId, bookingType, startDate, endDate } = data
 
     const user = await this.userRepository.getUserById(userId)
     const vehicle = await this.vehicleRepository.getVehicleById(vehicleId)
@@ -49,13 +49,13 @@ class AddBookingUseCase {
     const amount = (vehicle.perDayAmount || 100000) * days
     let driverId = null
     let driverAmount = null
-    let totalAmount = 0
+    let totalAmount = amount
 
     if (bookingType === 'with-driver') {
       driverId = await this.driverRepository.getSingleRandomDriver()
 
       driverAmount = 75000 * days
-      totalAmount += amount + driverAmount
+      totalAmount += driverAmount
     }
 
     const addBooking = newBookingSchema.parse({
